@@ -1,30 +1,29 @@
 #include<stdio.h>
 #include <string.h>
 char value;
-
+char putvalue;
 
 void put()
-{
-	printf("\n물건을 채우는 공간입니다.\n");
-	char name[3][10];
+{	char name[3][10];
     char tname[10];
     int i,j;
     int scores[3][3];
     int tscores;
-    for(i=0;i<3;i++){// 이름 및 점수 입력
+	printf("\n물건을 채우는 공간입니다.\n");
+    for(i=0;i<3;i++){// 상품명 및 가격 입력
 
-        printf("상품명 : ");
+        printf("\n상품명 : ");
 
         scanf("%s",name[i]);
 
         
 
         printf("가격 입력 : 예) 1000\n");
-
+        printf("--> ");
         scanf("%d", &scores[i][0],&scores[i][1],&scores[i][2]);
 
     }
-    for(i=0;i<3;i++)//이름순으로 정렬하기
+    for(i=0;i<3;i++)//상품명으로 정렬하기
     {
         for(j=i;j<3;j++)
         {
@@ -51,8 +50,20 @@ void put()
     {
         printf("%s %d\n", name[i],scores[i][0]);
     }
+    printf("-------------------------------------\n");
+    printf("-------------------------------------\n");
+    printf("창고가 꽉 찼습니다 물건을 구매하시려면 B를 입력하세요!\n");
+	getchar();
+	scanf("%c",&putvalue);
+	if(putvalue=='B')
+	{
+
+	} 
+    
 }
-void buy()
+
+
+void buy(char name[3][10], char scores[3][3])
 {
 	printf("\n물건을 구매하는 공간입니다."); 
 }
@@ -61,17 +72,12 @@ void buy()
 int main()
 {
 	printf("***소마할일마트에 오신것을 환영합니다.***\n\n");
-	printf("물건을 채우시려면 F를 눌러주세요\n");
-	printf("상품을 구매하시려면 B를 눌러주세요\n\n");
+	printf("창고가 비어있습니다! 물건을 채우시려면 F를 눌러주세요\n");
 	printf("입력 : -> ");
 	scanf("%c",&value);
 	if(value=='F')
 	{
 		put();
-	}
-	else if(value=='B')
-	{
-		buy();
 	}
 	 
 }
