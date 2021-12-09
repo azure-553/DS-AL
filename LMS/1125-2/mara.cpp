@@ -19,7 +19,17 @@ int malatang(){
 	printf("4단계 : 드시다 매워서 욕^^ 나오는 엄청 매운 맛\n");
 	printf("\n먹으실 마라탕의 맵기를 선택하세요 : -> ");
 	scanf("%d",&malatang_spicy);
+	printf("\n---마라탕의 재료를 선택하세요---\n");
+	printf("1 : 청경채 (10g)\n");
+	printf("2 : 중국당면 (10g)\n");
+	printf("3 : 옥수수면 (10g)\n");
+	printf("4 : 배추 (10g)\n");
+	printf("5 : 푸주 (10g)\n");
+	printf("6 : 숙주 (10g)\n");
+	printf("7 : 햄/소세지 (10g)\n");
+	printf("8 : 소고기 (10g)\n");
 	return malatang_gram;
+	
 }
 
 

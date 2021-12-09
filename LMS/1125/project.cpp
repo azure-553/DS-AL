@@ -3,8 +3,8 @@
 char value;
 char putvalue;
 
-void put()
-{	char name[3][10];
+void put(){
+	char name[3][10];
     char tname[10];
     int i,j;
     int scores[3][3];
@@ -57,21 +57,17 @@ void put()
 	scanf("%c",&putvalue);
 	if(putvalue=='B')
 	{
-
+		
 	} 
-    
 }
 
-
-void buy(char name[3][10], char scores[3][3])
-{
+void buy(){
 	printf("\n물건을 구매하는 공간입니다."); 
 }
 
 
-int main()
-{
-	printf("***소마할일마트에 오신것을 환영합니다.***\n\n");
+int main(){
+	printf("***소마할인마트에 오신것을 환영합니다.***\n\n");
 	printf("창고가 비어있습니다! 물건을 채우시려면 F를 눌러주세요\n");
 	printf("입력 : -> ");
 	scanf("%c",&value);
