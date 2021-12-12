@@ -4,6 +4,7 @@
 
 typedef struct listNode {
 	char data[100];
+	int price;
 	struct listNode *link;
 }listNode;
 
@@ -11,15 +12,13 @@ typedef struct {
 	listNode *head;
 }linkedList_h;
 
-
 linkedList_h* createLinkedList_h();
 void printList(linkedList_h *L);
 void freeLinkedList_h(linkedList_h* L);
-listNode *searchNode(linkedList_h *L, char *x);
-
-linkedList_h* insertFirstNode(linkedList_h *L, char *x);
-void insertMiddleNode( linkedList_h *L, listNode *pre, char *x);
-void insertLastNode( linkedList_h *L, char *x);
+//listNode *searchNode(linkedList_h *L, char *x);
+linkedList_h* insertFirstNode(linkedList_h *L, char *x, int price);
+void insertMiddleNode( linkedList_h *L, listNode *pre, char *x, int price);
+void insertLastNode( linkedList_h *L, char *x, int price);
 
 
 
@@ -27,33 +26,31 @@ int main() {
 	linkedList_h *L;
 	listNode *O;
 	L = createLinkedList_h();
-	L = insertFirstNode(L, "Chocolate");
-	L = insertFirstNode(L, "Jamoca_coffee");
-	insertLastNode(L, "Strawberry");
-	insertLastNode(L, "Rocky_Road");
-	insertLastNode(L, "Vanilla");
-	insertLastNode(L, "Chocolate_chip_cookie_dough");
-	insertLastNode(L, "Mint_chip");
-	insertLastNode(L, "Chcolate_chip");
-	insertLastNode(L, "Praliness'n_cream");
-	insertLastNode(L, "Rainbow_sherbet");
-	insertLastNode(L, "Gold_medal_ribbon");
-	insertLastNode(L, "Cotten_candy");
-	insertLastNode(L, "Blaclc_currant");
-	insertLastNode(L, "Tiramisa");
-	insertLastNode(L, "Litchi_gold");
-	insertLastNode(L, "Mississippi_Mud");
-	insertLastNode(L, "Alphonso'N'cream");
-	insertLastNode(L, "Papaya pineapple");
-	insertLastNode(L, "Butterscrotch_ribbon");
-	insertLastNode(L, "Puss_in_boots");
+	L = insertFirstNode(L, "Chocolate", 3000);
+	L = insertFirstNode(L, "Jamoca_coffee", 2900);
+	insertLastNode(L, "Strawberry", 3100);
+	insertLastNode(L, "Rocky_Road", 3400);
+	insertLastNode(L, "Vanilla", 3030);
+	insertLastNode(L, "Chocolate_chip_cookie_dough", 1200);
+	insertLastNode(L, "Mint_chip", 7900);
+	insertLastNode(L, "Chcolate_chip", 1200);
+	insertLastNode(L, "Praliness'n_cream", 3600);
+	insertLastNode(L, "Rainbow_sherbet", 3200);
+	insertLastNode(L, "Gold_medal_ribbon", 1000);
+	insertLastNode(L, "Cotten_candy", 1000);
+	insertLastNode(L, "Blaclc_currant", 3030);
+	insertLastNode(L, "Tiramisa", 3330);
+	insertLastNode(L, "Litchi_gold", 2500);
+	insertLastNode(L, "Mississippi_Mud", 7000);
+	insertLastNode(L, "Alphonso'N'cream", 1200);
+	insertLastNode(L, "Papaya pineapple", 6000);
+	insertLastNode(L, "Butterscrotch_ribbon", 1010);
+	insertLastNode(L, "Puss_in_boots", 5000);
 	sort(L);
 	printList(L);
-	
 	freeLinkedList_h(L);
 	return 0;
 }
-
 
 linkedList_h* createLinkedList_h() {
 	linkedList_h *L;
@@ -64,8 +61,9 @@ linkedList_h* createLinkedList_h() {
 
 void printList(linkedList_h *L) {
 	listNode *p = L->head;
+	printf("이름 가격\n"); 
 	while(p) {
-		printf("%s\n", p->data);
+		printf("%s %d \n", p->data, p->price);
 		p= p->link;
 	}
 }
@@ -79,38 +77,29 @@ void freeLinkedList_h(linkedList_h* L) {
 	}
 }
 
-linkedList_h* insertFirstNode(linkedList_h *L, char* x) {
+linkedList_h* insertFirstNode(linkedList_h *L, char* x, int price) {
 	listNode *p;
 	p = (listNode*)malloc(sizeof(listNode));
 	strcpy(p->data, x);
+	p->price = price;
 	p->link = L->head;
 	L->head = p;
 	return L;
 }
 
-listNode *searchNode(linkedList_h *L, char *x) {
-	listNode *p = L->head;
-	while(p) {
-		if(strcmp(p->data, x) == 0) {
-			break;
-		}
-		p= p->link;
-	}
-	return p;
-}
-
-void insertMiddleNode( linkedList_h *L, listNode *pre, char *x) {
+void insertMiddleNode( linkedList_h *L, listNode *pre, char *x, int price) {
 	if(L) {
 		listNode *p;
 		p = (listNode*)malloc(sizeof(listNode));
 		strcpy(p->data, x);
+		p->price = price;
 		p->link = pre->link;
 		pre->link = p;
 	}
 }
 
 
-void insertLastNode( linkedList_h *L, char *x) {
+void insertLastNode( linkedList_h *L, char *x, int price) {
 	listNode *p = L->head;
 	while(p) {
 		if(p->link == NULL) break;
@@ -119,6 +108,7 @@ void insertLastNode( linkedList_h *L, char *x) {
 	listNode *n;
 	n = (listNode*)malloc(sizeof(listNode));
 	strcpy(n->data, x);
+	n->price = price;
 	n->link = p->link;
 	p->link = n;
 }
@@ -126,11 +116,8 @@ void insertLastNode( linkedList_h *L, char *x) {
 void swap(listNode *n1, listNode *n2) {
 	char temp[100];
 	strcpy(temp, n1->data);
-//	temp = n1->data;
 	strcpy(n1->data, n2->data);
-//	n1->data = n2->data;
 	strcpy(n2->data, temp);
-//	n2->data = temp;
 }
 
 int getsize(linkedList_h* L) {
