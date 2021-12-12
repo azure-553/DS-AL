@@ -1,0 +1,163 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+typedef struct listNode {
+	char data[100];
+	struct listNode *link;
+}listNode;
+
+typedef struct {
+	listNode *head;
+}linkedList_h;
+
+
+linkedList_h* createLinkedList_h();
+void printList(linkedList_h *L);
+void freeLinkedList_h(linkedList_h* L);
+listNode *searchNode(linkedList_h *L, char *x);
+
+linkedList_h* insertFirstNode(linkedList_h *L, char *x);
+void insertMiddleNode( linkedList_h *L, listNode *pre, char *x);
+void insertLastNode( linkedList_h *L, char *x);
+
+
+
+int main() {
+	linkedList_h *L;
+	listNode *O;
+	L = createLinkedList_h();
+	L = insertFirstNode(L, "Chocolate");
+	L = insertFirstNode(L, "Jamoca_coffee");
+	insertLastNode(L, "Strawberry");
+	insertLastNode(L, "Rocky_Road");
+	insertLastNode(L, "Vanilla");
+	insertLastNode(L, "Chocolate_chip_cookie_dough");
+	insertLastNode(L, "Mint_chip");
+	insertLastNode(L, "Chcolate_chip");
+	insertLastNode(L, "Praliness'n_cream");
+	insertLastNode(L, "Rainbow_sherbet");
+	insertLastNode(L, "Gold_medal_ribbon");
+	insertLastNode(L, "Cotten_candy");
+	insertLastNode(L, "Blaclc_currant");
+	insertLastNode(L, "Tiramisa");
+	insertLastNode(L, "Litchi_gold");
+	insertLastNode(L, "Mississippi_Mud");
+	insertLastNode(L, "Alphonso'N'cream");
+	insertLastNode(L, "Papaya pineapple");
+	insertLastNode(L, "Butterscrotch_ribbon");
+	insertLastNode(L, "Puss_in_boots");
+	sort(L);
+	printList(L);
+	
+	freeLinkedList_h(L);
+	return 0;
+}
+
+
+linkedList_h* createLinkedList_h() {
+	linkedList_h *L;
+	L = (linkedList_h*)malloc(sizeof(linkedList_h));
+	L->head = NULL;
+	return L;
+}
+
+void printList(linkedList_h *L) {
+	listNode *p = L->head;
+	while(p) {
+		printf("%s\n", p->data);
+		p= p->link;
+	}
+}
+
+void freeLinkedList_h(linkedList_h* L) {
+	listNode *p;
+	while(L->head) {
+		p=L->head;
+		L->head = p->link;
+		free(p);
+	}
+}
+
+linkedList_h* insertFirstNode(linkedList_h *L, char* x) {
+	listNode *p;
+	p = (listNode*)malloc(sizeof(listNode));
+	strcpy(p->data, x);
+	p->link = L->head;
+	L->head = p;
+	return L;
+}
+
+listNode *searchNode(linkedList_h *L, char *x) {
+	listNode *p = L->head;
+	while(p) {
+		if(strcmp(p->data, x) == 0) {
+			break;
+		}
+		p= p->link;
+	}
+	return p;
+}
+
+void insertMiddleNode( linkedList_h *L, listNode *pre, char *x) {
+	if(L) {
+		listNode *p;
+		p = (listNode*)malloc(sizeof(listNode));
+		strcpy(p->data, x);
+		p->link = pre->link;
+		pre->link = p;
+	}
+}
+
+
+void insertLastNode( linkedList_h *L, char *x) {
+	listNode *p = L->head;
+	while(p) {
+		if(p->link == NULL) break;
+		p = p->link;
+	}
+	listNode *n;
+	n = (listNode*)malloc(sizeof(listNode));
+	strcpy(n->data, x);
+	n->link = p->link;
+	p->link = n;
+}
+
+void swap(listNode *n1, listNode *n2) {
+	char temp[100];
+	strcpy(temp, n1->data);
+//	temp = n1->data;
+	strcpy(n1->data, n2->data);
+//	n1->data = n2->data;
+	strcpy(n2->data, temp);
+//	n2->data = temp;
+}
+
+int getsize(linkedList_h* L) {
+	listNode *p = L->head;
+	int count = 0;
+	while(p) {
+		count++;
+		p = p->link;
+	}
+	return count;
+}
+
+void sort(linkedList_h *L) {
+	int i;
+	listNode *p = L->head;
+	listNode *buf;
+	int cnt = 0;
+	int size = getsize(L);
+	while(p) {
+		buf = L->head;
+		for(i=1; i<size-cnt; i++) {
+			if(buf->data[0] > buf->link->data[0]) {
+				swap(buf, buf->link);
+			}
+			buf = buf->link;
+		}
+		p = p->link;
+		cnt++;
+	}
+}
