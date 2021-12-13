@@ -38,23 +38,46 @@ int getsize(linkedList_h* L) {
 	return count;
 }
 
-void printPart(linkedList_h *L, int index, int j) {
+listNode* find(linkedList_h * L, int index) {
 	listNode *p = L->head;
 	int cnt = 0;
 	while(cnt != index && p->link != NULL) {
 		p = p->link;
 		cnt ++;
 	}
-	printf("%s %d * %d개\n", p->data, p->price, j);
+	return p;
 }
 
 void printBasket(int list[], linkedList_h *L) {
+	listNode *p = L->head;	
 	int max = getsize(L);
 	int i;
 	for(i=0; i<max; i++) {
 		if(list[i] != 0) {
-			printPart(L, i, list[i]);
+			p = find(L, i);
+			printf("%s %d * %d개\n", p->data, p->price, list[i]);
 		}
+	}
+}
+
+void Buying(int list[], linkedList_h *L, int *wallet) {
+	listNode *p = L->head;
+	int temp;
+	int tempWallet = 0;
+	int max = getsize(L);
+	int i;
+	for(i=0; i<max; i++) {
+		if(list[i]>0) {
+			p = find(L, i);
+			temp = p->price;
+			tempWallet += temp*list[i];
+		}
+	}
+	if(*wallet < tempWallet) {
+		printf("자금이 부족합니다 ");
+	} else {
+		*wallet -= tempWallet;
+		printf("장바구니에 추가한 상품이 모두 구입되었습니다");
 	}
 }
 
@@ -84,7 +107,7 @@ int main() {
 	insertLastNode(L, "Puss_in_boots", 2500);
 	sort(L);
 
-	int wallet = 500000;
+	int wallet = 10000;
 	int check;
 	int arr[1000] = {0};
 	while(1) {
@@ -109,7 +132,7 @@ int main() {
 		}
 		if (check==4) {
 			system("cls");
-			printf("making");
+			Buying(arr, L, &wallet);
 		}
 	}
 	
